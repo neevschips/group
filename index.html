@@ -14,6 +14,7 @@
             padding: 0;
             color: silver; /* All text is silver */
             overflow-x: hidden;
+            height: 100%; /* Full height */
         }
 
         h1, h2, p {
@@ -31,7 +32,7 @@
             display: flex;
             justify-content: center;
             background-color: #333;
-            padding: 15px 0;
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -41,10 +42,10 @@
         nav a {
             color: silver;
             text-decoration: none;
-            padding: 15px 25px;
-            margin: 0 15px;
+            padding: 20px 30px;
+            margin: 0 20px;
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 20px;
             transition: color 0.3s ease, transform 0.3s ease;
         }
 
@@ -62,7 +63,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 80px 20px;
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
@@ -85,7 +86,7 @@
         .property {
             background-color: #444;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
@@ -111,6 +112,9 @@
             text-align: center;
             padding: 20px 0;
             color: silver;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
 
         /* Hidden Sections */
@@ -129,22 +133,27 @@
         <a href="#" onclick="showSection('contact')">Contact</a>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Home Page -->
     <div id="home" class="container hidden-section">
         <h1>Welcome to Silver Sky Group</h1>
-        <p>We offer luxurious Airbnbs from around the world for you to stay in, with stunning views and top-tier amenities.</p>
+        <p>Discover our selection of luxurious Airbnb properties around the world, designed to provide exceptional stays and unforgettable experiences.</p>
+        <p>Explore breathtaking views, modern amenities, and unique destinations that cater to all your travel needs. Let us guide you to your perfect stay.</p>
     </div>
 
+    <!-- About Page -->
     <div id="about" class="container hidden-section">
         <h2>About Silver Sky Group</h2>
-        <p>We are passionate about providing exclusive, high-end Airbnb properties around the world that offer breathtaking views, unique experiences, and top-tier amenities. Our goal is to ensure that every stay is memorable.</p>
+        <p>At Silver Sky Group, we offer luxurious Airbnbs from around the world for you to stay in, with stunning views and top-tier amenities. Whether you're looking for a romantic getaway, a family vacation, or a luxurious retreat, we have the perfect place for you.</p>
+        <p>Our mission is to connect travelers with beautiful, memorable stays that meet their needs and exceed their expectations. We pride ourselves on providing personalized service and unforgettable experiences.</p>
     </div>
 
+    <!-- Services Page -->
     <div id="services" class="container hidden-section">
         <h2>Our Services</h2>
-        <p>We provide an exceptional selection of Airbnbs, tailored to suit your unique needs. From luxury accommodations to unique destinations, we offer top-quality service for every guest.</p>
+        <p>We specialize in providing an exceptional selection of luxury Airbnbs from various regions. Our properties offer unmatched comfort, unique experiences, and breathtaking views. Whether it's a beach house, a mountain villa, or a city apartment, we have something for everyone.</p>
     </div>
 
+    <!-- Properties Page -->
     <div id="properties" class="container hidden-section">
         <h2>Our Stunning Properties</h2>
         <div class="property-list">
@@ -168,9 +177,10 @@
         </div>
     </div>
 
+    <!-- Contact Page -->
     <div id="contact" class="container hidden-section">
         <h2>Contact Us</h2>
-        <p>If you have any questions or inquiries, feel free to reach out to us! We're happy to assist you.</p>
+        <p>If you have any questions or inquiries, feel free to reach out to us! We're happy to assist you with any information you need.</p>
     </div>
 
     <!-- Footer -->
