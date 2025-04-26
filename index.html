@@ -1,206 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Silver Sky Group</title>
-    <style>
-        /* Global Styles */
-        body {
-            background-color: #2f2f2f; /* Dark Gray Background */
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: silver; /* All text is silver */
-            overflow-x: hidden;
-            height: 100%; /* Full height */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Silver Sky Group</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #2f2f2f; /* Dark gray background */
+      color: silver;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        h1, h2, p {
-            color: silver;
-            margin: 0;
-        }
+    /* Star background */
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none; /* So clicks go through */
+    }
+    .star {
+      position: absolute;
+      background: white;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkle 4s infinite ease-in-out;
+    }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(1.5); }
+    }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
+    /* Navbar */
+    nav {
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: silver;
+      text-decoration: none;
+      margin: 0 20px;
+      font-size: 20px;
+      position: relative;
+      overflow: hidden;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      z-index: 1001;
+      cursor: pointer; /* Pointer on hover */
+    }
+    nav a:hover {
+      color: white;
+      background-color: #444;
+      box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.5); /* Small glow effect */
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+      transform: rotate(25deg);
+      opacity: 0;
+      transition: all 0.5s;
+    }
+    nav a:hover::after {
+      top: -50%;
+      left: 100%;
+      opacity: 1;
+      transition: all 0.5s;
+    }
 
-        /* Navigation Bar */
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+    /* Page content */
+    .page {
+      display: none;
+      padding: 80px 20px;
+      min-height: 90vh;
+      position: relative;
+      z-index: 100;
+    }
+    .active {
+      display: block;
+    }
 
-        nav a {
-            color: silver;
-            text-decoration: none;
-            padding: 20px 30px;
-            margin: 0 20px;
-            border-radius: 5px;
-            font-size: 20px;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
+    h1, h2 {
+      margin-top: 0;
+      color: silver;
+      z-index: 100;
+    }
 
-        /* Hide the first and last navigation buttons */
-        nav a:first-child, nav a:last-child {
-            display: none;
-        }
+    p {
+      z-index: 100;
+    }
 
-        nav a:hover {
-            color: white;
-            transform: translateY(-5px);
-        }
+    /* Property Grid */
+    .property-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
 
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
+    .property {
+      background-color: #444;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer; /* Pointer on hover */
+    }
+    .property:hover {
+      background-color: #555;
+      transform: translateY(-5px);
+      box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.5); /* Small glow effect */
+    }
+    .property img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
 
-        /* Fade In Animation */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Property Cards */
-        .property-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .property {
-            background-color: #444;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .property:hover {
-            background-color: #555;
-            transform: translateY(-10px);
-        }
-
-        .property img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .property h3 {
-            color: silver;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            text-align: center;
-            padding: 20px 0;
-            color: silver;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-
-        /* Hidden Sections */
-        .hidden-section {
-            display: none;
-        }
-    </style>
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: silver;
+      position: relative;
+      z-index: 100;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <a href="#" onclick="showSection('home')">Home</a>
-        <a href="#" onclick="showSection('about')">About</a>
-        <a href="#" onclick="showSection('services')">Services</a>
-        <a href="#" onclick="showSection('properties')">Properties</a>
-        <a href="#" onclick="showSection('contact')">Contact</a>
-    </nav>
 
-    <!-- Home Page -->
-    <div id="home" class="container hidden-section">
-        <h1>Welcome to Silver Sky Group</h1>
-        <p>Discover our selection of luxurious Airbnb properties around the world, designed to provide exceptional stays and unforgettable experiences.</p>
-        <p>Explore breathtaking views, modern amenities, and unique destinations that cater to all your travel needs. Let us guide you to your perfect stay.</p>
+<!-- Stars background -->
+<div id="stars"></div>
+
+<!-- Navbar -->
+<nav>
+  <a href="#" onclick="showPage('home')">Home</a>
+  <a href="#" onclick="showPage('about')">About</a>
+  <a href="#" onclick="showPage('properties')">Properties</a>
+  <a href="#" onclick="showPage('contact')">Contact</a>
+</nav>
+
+<!-- Pages -->
+<div id="home" class="page active">
+  <h1>Welcome to Silver Sky Group</h1>
+  <p>Discover breathtaking Airbnb stays around the world, where luxury meets adventure.</p>
+</div>
+
+<div id="about" class="page">
+  <h1>About Us</h1>
+  <p>At Silver Sky Group, we hand-pick only the finest Airbnb experiences from every corner of the world. Comfort, style, and unforgettable views are what we deliver.</p>
+</div>
+
+<div id="properties" class="page">
+  <h1>Our Properties</h1>
+  <div class="property-list">
+    <div class="property">
+      <img src="https://via.placeholder.com/300x200" alt="Seattle House">
+      <h2>House in Seattle</h2>
+      <p>Facing the Space Needle with spectacular city views.</p>
     </div>
-
-    <!-- About Page -->
-    <div id="about" class="container hidden-section">
-        <h2>About Silver Sky Group</h2>
-        <p>At Silver Sky Group, we offer luxurious Airbnbs from around the world for you to stay in, with stunning views and top-tier amenities. Whether you're looking for a romantic getaway, a family vacation, or a luxurious retreat, we have the perfect place for you.</p>
-        <p>Our mission is to connect travelers with beautiful, memorable stays that meet their needs and exceed their expectations. We pride ourselves on providing personalized service and unforgettable experiences.</p>
+    <div class="property">
+      <img src="https://via.placeholder.com/300x200" alt="Texas Villa">
+      <h2>Villa in Texas</h2>
+      <p>Massive ranch-style luxury villa surrounded by nature.</p>
     </div>
-
-    <!-- Services Page -->
-    <div id="services" class="container hidden-section">
-        <h2>Our Services</h2>
-        <p>We specialize in providing an exceptional selection of luxury Airbnbs from various regions. Our properties offer unmatched comfort, unique experiences, and breathtaking views. Whether it's a beach house, a mountain villa, or a city apartment, we have something for everyone.</p>
+    <div class="property">
+      <img src="https://via.placeholder.com/300x200" alt="Modern Home in India">
+      <h2>Home in India</h2>
+      <p>Modern vibes meet traditional roots in this stunning home.</p>
     </div>
+  </div>
+</div>
 
-    <!-- Properties Page -->
-    <div id="properties" class="container hidden-section">
-        <h2>Our Stunning Properties</h2>
-        <div class="property-list">
-            <div class="property">
-                <img src="property1.jpg" alt="Seattle House">
-                <h3>Beautiful House in Seattle</h3>
-                <p>Facing the Space Needle, this luxurious property offers spectacular views.</p>
-            </div>
+<div id="contact" class="page">
+  <h1>Contact Us</h1>
+  <p>Reach out today and book your next unforgettable stay! 🌎✈️</p>
+  <p>Email: info@silverskygroup.com</p>
+</div>
 
-            <div class="property">
-                <img src="property2.jpg" alt="Texas Villa">
-                <h3>Spacious Villa in Texas</h3>
-                <p>Perfect for large groups and offering stunning views of the countryside.</p>
-            </div>
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Silver Sky Group. All rights reserved.</p>
+</footer>
 
-            <div class="property">
-                <img src="property3.jpg" alt="Modern Home in India">
-                <h3>Modern Home in India</h3>
-                <p>Experience luxury in a stylish, modern home with traditional Indian charm.</p>
-            </div>
-        </div>
-    </div>
+<script>
+  function showPage(pageId) {
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+  }
 
-    <!-- Contact Page -->
-    <div id="contact" class="container hidden-section">
-        <h2>Contact Us</h2>
-        <p>If you have any questions or inquiries, feel free to reach out to us! We're happy to assist you with any information you need.</p>
-    </div>
+  // Tiny stars ✨ 
+  const starContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) { // Made more stars but still chill
+    const star = document.createElement('div');
+    star.classList.add('star');
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    starContainer.appendChild(star);
+  }
+</script>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Silver Sky Group. All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        // Function to show the sections when clicked
-        function showSection(sectionId) {
-            // Hide all sections first
-            const sections = document.querySelectorAll('.container');
-            sections.forEach(section => section.classList.add('hidden-section'));
-
-            // Show the selected section
-            document.getElementById(sectionId).classList.remove('hidden-section');
-        }
-
-        // Default section to show
-        showSection('home');
-    </script>
 </body>
 </html>
